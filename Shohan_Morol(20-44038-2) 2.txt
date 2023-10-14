@@ -1,0 +1,54 @@
+********** The changes that i have made in the code i mentioned them using comment*********************
+  ********* I was having issues while attaching the doc file. Madam i hope you will consider*********
+
+#include<iostream>
+using namespace std;
+int g[100][100];
+bool visited[100];
+int n;
+int destination;
+
+bool dfs(int u, int parent){
+    // change 1 start
+    bool hasCycle = false;
+    visited[u]=true;
+    for(int i=0;i<=n;i++){
+        if(g[u][i]==1){
+            if(visited[i])  return true;
+            if(!visited[i]){
+                hasCycle |= dfs(i,u);
+            }
+        }
+    }
+    return hasCycle;
+    // change 1 end
+}
+
+int main(){
+
+
+    cout << "Enter the number of nodes: " ;
+    cin >> n;
+    int e;
+    cout << "Enter the number of edges: ";
+    cin >> e;
+
+    int u, v;
+    for(int i=0;i<e;i++){
+        cin >> u >> v;
+    // change 2 start
+        g[u][v]=1;
+    // change 2 end
+    }
+
+
+    // change 3 start
+    int start;
+    cout << "Start destination : ";
+    cin >> start;
+    if(dfs(start,0)) cout << "There is cycle in the graph" << endl;
+    else cout << "No cycle detected" << endl;
+    // change 3 end
+
+    return 0;
+}
